@@ -24,6 +24,7 @@ exports.delete = function(request, response){
     conn.query(sql,[id], function(err, rows){
         if(!err){
             console.log("삭제성공!");
+            response.redirect('/allSelect');
         }else{
             console.log("삭제실패!");
         }
@@ -91,13 +92,14 @@ exports.checklogin = function(request, response){
     var id = request.body.id;
     var pw = request.body.pw;
 
-    var sql = "select * from member1 where id = ?";
+    console.log(id, pw);
+    var sql = "select * from member1 where id = ? and pw = ?";
 
-    conn.query(sql,[id], function(err, rows){
-        if(rows[0].ID == id && rows[0].PW == pw){
+    conn.query(sql,[id, pw], function(err, rows){
+        if(rows[0]){
             response.render("LoginS", {send_id: id});
         }else{
-            response.redirect("http://127.0.0.1:5500/0429/LoginF.html");
+            response.redirect("http://127.0.0.1:5500/Node.js-Study/0429/views/LoginF.html");
         }
     }); //DB에 쿼리를 전송
 }

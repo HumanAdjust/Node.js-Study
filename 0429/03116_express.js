@@ -103,6 +103,11 @@ app.post('/allSelect',function(request, response){
    //response.send("ID : " + id + "PW : " + pw + "NICK : " +nick);
 });
 
+app.get('/allSelect',function(request, response){
+    func.selectall(request, response);
+   //response.send("ID : " + id + "PW : " + pw + "NICK : " +nick);
+});
+
 app.post('/table', function(request, response){
     response.render('index.ejs', { num: parseInt(request.body.table) });
 });
