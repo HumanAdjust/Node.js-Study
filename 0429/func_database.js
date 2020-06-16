@@ -97,6 +97,7 @@ exports.checklogin = function(request, response){
     var sql = "select * from member1 where id = ? and pw = ?";
 
     conn.query(sql,[id, pw], function(err, rows){
+        console.log(conn.query(sql, [id, pw]).sql);
         if(rows[0]){
             response.render("LoginS", {send_id: id});
         }else{
