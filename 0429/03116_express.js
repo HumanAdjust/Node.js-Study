@@ -1,5 +1,6 @@
 var express = require('express'); //express 모듈 로드
 var bodyParser = require('body-parser');
+var sessionP = require('express-session')
 var app = express(); //express app생성
 var port = 3000;
 
@@ -15,12 +16,22 @@ var func = require('./func_database.js');
 // });
 // 어떤 라우터든 실행을 하면 무조건 동작하는 기능: 미들웨어
 app.use(bodyParser.urlencoded({extended:false}));
+app.use(sessionP({
+    secret : "smart0317",
+    resave : false,
+    saveUninit : true
+}));
 app.set('view engine', 'ejs'); //view engine 중 ejs 사용
 //post 방식 -> 패킷(바디) 값이 서버로 넘어옴
 //패킷(바디)부분을 해석(인코딩 : application/x-www-form-urlencoded)
 
 // GET방식 요청에 대한 처리 
 app.get('/', function(request, response){
+    request.session.user = {
+        "name" : "jason",
+        "age" : "20"
+    };
+    console.log("Session 생성 완료");
     // 웹 페이지에 문자열 데이터 전송
     response.render('index', {num: 5});
 });
@@ -111,6 +122,10 @@ app.get('/allSelect',function(request, response){
 app.post('/table', function(request, response){
     response.render('index.ejs', { num: parseInt(request.body.table) });
 });
+
+app.get('/mail', function(req, res){
+    res.render('mail', {})
+})
 
 // express app 실행
 app.listen(port,function(){

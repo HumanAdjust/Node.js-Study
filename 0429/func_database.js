@@ -48,6 +48,7 @@ exports.update = function(request, response){
 }
 
 exports.selectall = function(request, response){
+    console.log("session영역에 있는 user값 : " + request.session.user.name);
     var sql = "select * from member1";
     conn.query(sql, function(err, rows){
         if(!err){
