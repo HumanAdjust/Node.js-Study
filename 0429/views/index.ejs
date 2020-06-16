@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>ejs Index페이지</h1>
+    <p>서버에서 넘어온 num값: <%= num %></p>
+    <table border=1>
+        <tr>
+            <%for(var i=0; i <= num; i++){ %>
+            <td><%= i%></td>
+            <% } %>
+        </tr>
+    </table>
+</body>
+</html>

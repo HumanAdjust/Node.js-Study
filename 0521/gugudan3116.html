@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>구구단!</title>
+</head>
+
+<body>
+    <h1>구구단</h1>
+    <form action="http://127.0.0.1:3000/gugudan" method="POST">
+        출력하고 싶은 단을 입력해주세요!
+        <input type="text" name="num">
+        <input type="submit" value="확인">
+    </form>
+</body>
+</html>
+
+<!-- <h1>구구단</h1>
+    <input type="text" id="num">
+    <input type="button" value="입력" onclick="gugudan()">
+    <script>
+        function gugudan(){
+            var num = document.querySelector("#num").value;
+            document.write("<h3> " + num + "</h3>");
+            document.write("<div>");
+
+            for(var i = 1; i <= 9; i++){
+                document.write(`${num} X ${i} = ${num * i}<br>`);
+            }
+        }
+        /*var check = prompt("구구단의 전체 단을 출력하시려면 1, 원하는 단만 출력하시려면 2를 눌러주세요.");
+
+        if(check === '1'){
+            for(var i=2; i <= 9 ; i++ ){
+                document.write(`<h2>${i}단</h2>`);
+                for(var j=1; j <= 9 ; j++ ){
+                    document.write(`${i} X ${j} = ${i * j}<br>`);
+                }
+            }
+        }else if(check === '2'){
+            var num = prompt("출력할 단을 입력해주세요");
+            document.write(`<h2>${num}단</h2>`);
+            for(var i = 1; i <= 9; i++){
+                document.write(`${num} X ${i} = ${num * i}<br>`);
+            }
+        }else{
+            alert("잘못된 값입니다!");
+            location.reload(true);
+        }*/
+    </script> -->

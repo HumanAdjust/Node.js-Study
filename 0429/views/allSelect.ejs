@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>전체회원검색페이지</h1>
+
+    <table border='1'>
+    <% for(var i = 0; i < rows.length; i++){ %>
+        <tr>
+            <th>
+                <%=rows[i].ID%>
+            </th>
+            <th>
+                <%=rows[i].PW%>
+            </th>
+            <th>
+                <%=rows[i].NICKNAME%>
+            </th>
+            <th>
+                <a href="http://localhost:3000/delete?id=1">삭제</a>
+            </th>
+        </tr>
+    <% } %>
+    </table>
+</body>
+</html>
