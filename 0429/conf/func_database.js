@@ -48,11 +48,13 @@ exports.update = function(request, response){
 }
 
 exports.selectall = function(request, response){
-    console.log("session영역에 있는 user값 : " + request.session.user.name);
     var sql = "select * from member1";
     conn.query(sql, function(err, rows){
         if(!err){
-            response.render('allSelect', {rows: rows});
+            response.render('allSelect', {
+                rows: rows,
+                user: request.session.user
+            });
             // response.write('<html>');
             // response.write('<body>');
             // response.write('<table border=1>');
@@ -99,9 +101,13 @@ exports.checklogin = function(request, response){
     conn.query(sql,[id, pw], function(err, rows){
         console.log(conn.query(sql, [id, pw]).sql);
         if(rows[0]){
+            request.session.user = {
+                "id" : id
+            };
+
             response.render("LoginS", {send_id: id});
         }else{
-            response.redirect("http://127.0.0.1:5500/Node.js-Study/0429/views/LoginF.html");
+            response.render("LoginF");
         }
     }); //DB에 쿼리를 전송
 }

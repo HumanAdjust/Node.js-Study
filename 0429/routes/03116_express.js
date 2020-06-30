@@ -4,7 +4,7 @@ var sessionP = require('express-session')
 var app = express(); //express app생성
 var port = 3000;
 
-var func = require('./func_database.js');
+var func = require('../conf/func_database.js');
 
 // app.use(function(request, response, next){
 //     console.log("첫번째 미들웨어 실행!");
@@ -115,6 +115,7 @@ app.post('/allSelect',function(request, response){
 });
 
 app.get('/allSelect',function(request, response){
+    console.log("session영역에 있는 user값 : " + request.session.user.name);
     func.selectall(request, response);
    //response.send("ID : " + id + "PW : " + pw + "NICK : " +nick);
 });
@@ -125,6 +126,24 @@ app.post('/table', function(request, response){
 
 app.get('/mail', function(req, res){
     res.render('mail', {})
+})
+
+app.get('/login', function(req, res){
+    if(req.session.user){
+        res.render('Login', {
+            user : req.session.user
+        });
+    }else{
+        res.render('Login', {
+            user : null
+        });
+    }
+});
+
+app.get('/Logout', function(req, res){
+    delete req.session.user;
+
+    res.redirect("http://localhost:3000/Login");
 })
 
 // express app 실행
