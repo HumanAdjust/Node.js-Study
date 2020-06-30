@@ -1,20 +1,25 @@
 var conn = require('./config_database.js');
 
 exports.join = function(request, response){
-    var id = request.body.id;
+    var email = request.body.email;
     var pw = request.body.pw;
-    var nick = request.body.nick;
+    var tel = request.body.tel;
+    var addr = request.body.addr;
 
-    var sql = "insert into member1 values(?,?,?)";
-    conn.query(sql,[id, pw, nick], function(err, rows){
+    console.log("email : " + email);
+    console.log("pw : " + pw);
+    console.log("tel : " + tel);
+    console.log("addr : " + addr);
+
+    var sql = "insert into WEB_MEMBER values(?,?,?,?)";
+    conn.query(sql,[email, pw, tel, addr], function(err, rows){
         if(!err){
             console.log("입력성공!");
+            response.redirect("http://localhost:3000/Message");
         }else{
             console.log(err);
         }
     }); //DB에 쿼리를 전송
-
-    response.send("DB연결성공");
 }
 
 exports.delete = function(request, response){
@@ -92,20 +97,20 @@ exports.selectone = function(request, response){
 }
 
 exports.checklogin = function(request, response){
-    var id = request.body.id;
+    var email = request.body.email;
     var pw = request.body.pw;
 
-    console.log(id, pw);
-    var sql = "select * from member1 where id = ? and pw = ?";
+    console.log(email, pw);
+    var sql = "select * from WEB_MEMBER where email = ? and pw = ?";
 
-    conn.query(sql,[id, pw], function(err, rows){
-        console.log(conn.query(sql, [id, pw]).sql);
+    conn.query(sql,[email, pw], function(err, rows){
+        console.log(conn.query(sql, [email, pw]).sql);
         if(rows[0]){
             request.session.user = {
-                "id" : id
+                "email" : email
             };
 
-            response.render("LoginS", {send_id: id});
+            response.redirect("/Message");
         }else{
             response.render("LoginF");
         }

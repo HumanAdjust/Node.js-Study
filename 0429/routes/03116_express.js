@@ -5,6 +5,7 @@ var app = express(); //express app생성
 var port = 3000;
 
 var func = require('../conf/func_database.js');
+const { response } = require('express');
 
 // app.use(function(request, response, next){
 //     console.log("첫번째 미들웨어 실행!");
@@ -21,6 +22,11 @@ app.use(sessionP({
     resave : false,
     saveUninit : true
 }));
+
+app.set('views', '../views');
+//views 폴더 지정
+app.use(express.static('../public'));
+//public 폴더 지정
 app.set('view engine', 'ejs'); //view engine 중 ejs 사용
 //post 방식 -> 패킷(바디) 값이 서버로 넘어옴
 //패킷(바디)부분을 해석(인코딩 : application/x-www-form-urlencoded)
@@ -122,6 +128,18 @@ app.get('/allSelect',function(request, response){
 
 app.post('/table', function(request, response){
     response.render('index.ejs', { num: parseInt(request.body.table) });
+});
+
+app.get('/message', function(req, res){
+    if(req.session.user){
+        res.render('Message', {
+            user : req.session.user
+        });
+    }else{
+        res.render('Message', {
+            user : null
+        });
+    }
 });
 
 app.get('/mail', function(req, res){
