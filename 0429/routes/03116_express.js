@@ -161,7 +161,17 @@ app.get('/login', function(req, res){
 app.get('/Logout', function(req, res){
     delete req.session.user;
 
-    res.redirect("http://localhost:3000/Login");
+    res.redirect("http://localhost:3000/message");
+})
+
+app.get('/Updatepage', function(req, res){
+    res.render('update', {
+        user : req.session.user
+    });
+});
+
+app.get('/update', function(req, res){
+    func.update(req, res);
 })
 
 // express app 실행

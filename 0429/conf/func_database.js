@@ -107,12 +107,38 @@ exports.checklogin = function(request, response){
         console.log(conn.query(sql, [email, pw]).sql);
         if(rows[0]){
             request.session.user = {
-                "email" : email
+                email : email,
+                tel : rows[0].tel,
+                addr : rows[0].address
             };
 
             response.redirect("/Message");
         }else{
             response.render("LoginF");
+        }
+    }); //DB에 쿼리를 전송
+}
+
+exports.update = function(request, response){
+    var pw = request.body.pw;
+    var tel = request.body.tel;
+    var addr = request.body.address;
+
+    var sql = "update WEB_MEMBER set pw = ?, tel = ?, address = ? where email = ?";
+
+    conn.query(sql,[pw, tel, addr, request.session.user.email], function(err, rows){
+        if(!err){
+            request.session.user = {
+                email : request.session.user.email,
+                tel : tel,
+                addr : addr
+            };
+
+            response.render('Message', {
+                user : request.session.user
+            });
+        }else{
+            console.log(err);
         }
     }); //DB에 쿼리를 전송
 }
